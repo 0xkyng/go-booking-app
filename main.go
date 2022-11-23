@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"time"
 )
 
 const conferenceTickets int = 50
@@ -32,7 +33,7 @@ func main() {
 		// checking for booking
 		if isValidName && isValidEmail && isValidTicketnumber {
 			bookTicket(userTickets, firstName, lastName, email)
-			sendTicket(userTickets, firstName, lastName, email)
+			go sendTicket(userTickets, firstName, lastName, email)
 
 			printFirstNames()
 
@@ -122,6 +123,8 @@ func bookTicket(userTickets int, firstName string, lastName string, email string
 
 // generating ticket and sending it to email after booking
 func sendTicket(userTickets int, firstName string, lastName string, email string) {
+	// simulating delay
+	time.Sleep(10 *time.Second)
 	var ticket = fmt.Sprintf("%v tickets for %v %v", userTickets, firstName, lastName)
 	fmt.Println("###############")
 	fmt.Printf("Sending ticket:\n %v \nto email address %v\n", ticket, email)
